@@ -15,7 +15,7 @@ else {
             message: "What do you want to do? ",
             type: "list",
             name: "option",
-            choices: ["Check balance", "Withdraw Cash"]
+            choices: ["Check balance", "Withdraw Cash", "Fast Cash"]
         }
     ]);
     if (action.option == "Check balance") {
@@ -33,6 +33,27 @@ else {
         else {
             balance = balance - drawAmount.amount;
             console.log("You have with drawn ", drawAmount.amount, ". Your new balance is ", balance);
+        }
+    }
+    if (action.option == "Fast Cash") {
+        let FastCash = await inquirer.prompt([
+            {
+                name: "option",
+                type: "list",
+                message: "Please select amount to be withdrawn",
+                choices: ["500", "1000", "5000", "10000", "20000", "Cancle"]
+            }
+        ]);
+        if (FastCash.option == "Cancle")
+            console.log("Thankyou for using ATM");
+        else {
+            if (FastCash.option > balance) {
+                console.log("Insuffcint balance");
+            }
+            else {
+                balance = balance - FastCash.option;
+                console.log("You have with drawn ", FastCash.option, ". Your new balance is ", balance);
+            }
         }
     }
 }
